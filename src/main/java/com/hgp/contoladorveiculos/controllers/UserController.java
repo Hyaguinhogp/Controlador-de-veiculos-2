@@ -1,4 +1,4 @@
-package com.hgp.contoladorveiculos;
+package com.hgp.contoladorveiculos.controllers;
 
 import java.net.URI;
 

@@ -16,7 +16,7 @@ public class Vehicle {
 	private Long id;
 	private String brand;
 	private String model;
-	private Integer year;
+	private String year;
 	
 	@ManyToOne
 	private User user;
@@ -24,7 +24,7 @@ public class Vehicle {
 	public Vehicle() {
 	}
 
-	public Vehicle(Long id, String brand, String model, Integer year, User user) {
+	public Vehicle(Long id, String brand, String model, String year, User user) {
 		super();
 		this.id = id;
 		this.brand = brand;
@@ -57,11 +57,11 @@ public class Vehicle {
 		this.model = model;
 	}
 
-	public Integer getYear() {
+	public String getYear() {
 		return year;
 	}
 
-	public void setYear(Integer year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
 
