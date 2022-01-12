@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.hgp.contoladorveiculos.entities.User;
+import com.hgp.contoladorveiculos.entities.Vehicle;
 
 public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -30,6 +33,21 @@ public class UserDTO implements Serializable{
 		this.email = email;
 		this.cpf = cpf;
 		this.birthDate = birthDate;
+	}
+	
+	public UserDTO(User user) {
+		this.id = user.getId();
+		this.name = user.getName();
+		this.email = user.getEmail();
+		this.cpf = user.getCpf();
+		this.birthDate = user.getBirthDate();
+	}
+
+	public UserDTO(User user, Set<Vehicle> vehicles) {
+		this(user);
+		for(Vehicle vehicle : vehicles) {
+			this.vehicles.add(new VehicleDTO(vehicle));
+		}
 	}
 
 	public Long getId() {

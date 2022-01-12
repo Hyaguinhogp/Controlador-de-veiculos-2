@@ -1,10 +1,11 @@
 package com.hgp.contoladorveiculos.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,32 +13,30 @@ import javax.persistence.Table;
 public class Vehicle {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private String id;
 	private String brand;
 	private String model;
 	private String year;
 	
-	@ManyToOne
-	private User user;
+	@ManyToMany(mappedBy = "vehicles")
+	private Set<User> users = new HashSet<>();
 	
 	public Vehicle() {
 	}
 
-	public Vehicle(Long id, String brand, String model, String year, User user) {
+	public Vehicle(String id, String brand, String model, String year) {
 		super();
 		this.id = id;
 		this.brand = brand;
 		this.model = model;
 		this.year = year;
-		this.user = user;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -65,11 +64,7 @@ public class Vehicle {
 		this.year = year;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public Set<User> getUsers() {
+		return users;
 	}
 }

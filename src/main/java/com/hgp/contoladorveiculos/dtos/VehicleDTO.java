@@ -3,45 +3,41 @@ package com.hgp.contoladorveiculos.dtos;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.hgp.contoladorveiculos.entities.Vehicle;
 
 public class VehicleDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
-	private String type;
+	private String id;
 	private String brand;
 	private String model;
 	private String year;
-	private UserDTO user;
-
+	
 	public VehicleDTO() {
 	}
 
-	public VehicleDTO(Long id, String type, String brand, String model, String year, UserDTO user) {
+	public VehicleDTO(String id, String brand, String model, String year) {
 		super();
 		this.id = id;
-		this.type = type;
 		this.brand = brand;
 		this.model = model;
 		this.year = year;
-		this.user = user;
+	}
+	
+	public VehicleDTO(Vehicle vehicle) {
+		this.id = vehicle.getId();
+		this.brand = vehicle.getBrand();
+		this.model = vehicle.getModel();
+		this.year = vehicle.getYear();
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	@JsonSetter(value = "CodigoFipe")
+	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	@JsonSetter(value = "TipoVeiculo")
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public String getBrand() {
@@ -69,13 +65,5 @@ public class VehicleDTO implements Serializable {
 	@JsonSetter(value = "AnoModelo")
 	public void setYear(String year) {
 		this.year = year;
-	}
-
-	public UserDTO getUser() {
-		return user;
-	}
-
-	public void setUser(UserDTO user) {
-		this.user = user;
 	}
 }

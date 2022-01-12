@@ -7,4 +7,5 @@ import com.hgp.contoladorveiculos.entities.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
+	public User findByName(String name);
 }

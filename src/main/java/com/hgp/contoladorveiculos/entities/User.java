@@ -1,15 +1,18 @@
 package com.hgp.contoladorveiculos.entities;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,8 +32,11 @@ public class User {
 	
 	private LocalDate birthDate;
 	
-	@OneToMany(mappedBy = "user")
-	private List<Vehicle> vehicles = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "tb_user_vehicle", 
+		joinColumns = @JoinColumn(name = "user_id"),
+		inverseJoinColumns = @JoinColumn(name = "vehicle_id"))
+	private Set<Vehicle> vehicles = new HashSet<>();
 	
 	public User() {
 	}
@@ -84,7 +90,7 @@ public class User {
 		this.birthDate = birthDate;
 	}
 
-	public List<Vehicle> getVehicles() {
+	public Set<Vehicle> getVehicles() {
 		return vehicles;
 	}
 }

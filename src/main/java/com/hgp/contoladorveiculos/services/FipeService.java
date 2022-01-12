@@ -9,7 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.hgp.contoladorveiculos.dtos.VehicleDTO;
+import com.hgp.contoladorveiculos.dtos.VehicleInsertDTO;
 import com.hgp.contoladorveiculos.entities.Brand;
 import com.hgp.contoladorveiculos.entities.Model;
 import com.hgp.contoladorveiculos.entities.ModelGetter;
@@ -25,13 +25,15 @@ public class FipeService {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	public VehicleDTO getVehicle(VehicleDTO dto) {
+	public VehicleInsertDTO getVehicle(VehicleInsertDTO dto) {
 		getVehicleCompletePath(dto);
-		dto = restTemplate.getForObject(path, VehicleDTO.class);
-		return dto;
+		VehicleInsertDTO vehicle = restTemplate.getForObject(path, VehicleInsertDTO.class);
+		vehicle.setType(dto.getType());
+		vehicle.setUserName(dto.getUserName());
+		return vehicle;
 	}
 	
-	private void getVehicleCompletePath(VehicleDTO dto) {
+	private void getVehicleCompletePath(VehicleInsertDTO dto) {
 		getBrands(dto.getType());
 		Long brandId = getBrandId(dto.getBrand());
 		
@@ -57,7 +59,6 @@ public class FipeService {
 	
 	private void getModels(Long brandId) {
 		path += "/" + brandId + "/modelos";
-		System.out.println(path);
 		ModelGetter modelGetter = restTemplate.getForObject(path, ModelGetter.class);
 		models = modelGetter.getModelos();
 	}

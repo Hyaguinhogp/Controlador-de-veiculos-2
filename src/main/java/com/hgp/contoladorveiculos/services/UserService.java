@@ -14,11 +14,18 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Transactional(readOnly = true)
+	public UserDTO findById(Long id) {
+		User user = userRepository.findById(id).get();
+		UserDTO dto = new UserDTO(user, user.getVehicles());
+		return dto;
+	}
+	
 	@Transactional
 	public UserDTO insertUser(UserDTO dto) {
 		User user = dtoToUser(dto);
 		userRepository.save(user);
-		return dto;
+		return new UserDTO(user);
 	}
 	
 	private User dtoToUser(UserDTO dto) {
@@ -30,4 +37,6 @@ public class UserService {
 		user.setBirthDate(dto.getBirthDate());
 		return user;
 	}
+
+	
 }
