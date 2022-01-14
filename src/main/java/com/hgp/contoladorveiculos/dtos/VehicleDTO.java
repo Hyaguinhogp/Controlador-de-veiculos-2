@@ -2,6 +2,8 @@ package com.hgp.contoladorveiculos.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.hgp.contoladorveiculos.entities.Vehicle;
 
@@ -9,8 +11,11 @@ public class VehicleDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String id;
+	@NotBlank(message = "A marca não pode estar vazia.")
 	private String brand;
+	@NotBlank(message = "O modelo não pode estar vazio.")
 	private String model;
+	@NotBlank(message = "O nome não pode estar vazio.")
 	private String year;
 	
 	public VehicleDTO() {

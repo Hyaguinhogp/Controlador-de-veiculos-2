@@ -1,5 +1,7 @@
 package com.hgp.contoladorveiculos.services;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hgp.contoladorveiculos.dtos.UserDTO;
 import com.hgp.contoladorveiculos.entities.User;
 import com.hgp.contoladorveiculos.repositories.UserRepository;
+import com.hgp.contoladorveiculos.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -16,9 +19,14 @@ public class UserService {
 	
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
-		User user = userRepository.findById(id).get();
-		UserDTO dto = new UserDTO(user, user.getVehicles());
-		return dto;
+		try {
+			User user = userRepository.findById(id).get();
+			UserDTO dto = new UserDTO(user, user.getVehicles());
+			return dto;
+		}
+		catch(NoSuchElementException e) {
+			throw new ResourceNotFoundException("Usuário não encontrado :)");
+		}
 	}
 	
 	@Transactional

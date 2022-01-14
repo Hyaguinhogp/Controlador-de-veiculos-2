@@ -2,6 +2,8 @@ package com.hgp.contoladorveiculos.controllers;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,7 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<UserDTO> insertUser(@RequestBody UserDTO dto){
+	public ResponseEntity<UserDTO> insertUser(@Valid @RequestBody UserDTO dto){
 		dto = userService.insertUser(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(dto.getId()).toUri();

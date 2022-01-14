@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.hgp.contoladorveiculos.entities.User;
@@ -15,8 +17,11 @@ public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	@NotBlank(message = "O nome não pode estar vazio.")
 	private String name;
+	@NotBlank(message = "O email não pode estar vazio.")
 	private String email;
+	@NotBlank(message = "O cpf não pode estar vazio.")
 	private String cpf;
 	
 	@JsonFormat(pattern = "dd/MM/yyy", shape = Shape.STRING)
