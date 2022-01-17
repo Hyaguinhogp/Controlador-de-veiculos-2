@@ -51,7 +51,7 @@ public class UserDTO implements Serializable{
 	public UserDTO(User user, Set<Vehicle> vehicles) {
 		this(user);
 		for(Vehicle vehicle : vehicles) {
-			this.vehicles.add(new VehicleDTO(vehicle));
+			this.vehicles.add(new VehicleGetDTO(vehicle));
 		}
 	}
 
